@@ -3,6 +3,13 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 
+def intter(k):
+    num = ''
+    for i in k:
+        if i != ',':
+            num = num + i
+    return int(num)
+
 c = ['a-span12', '_1vC4OE _3qQ9m1']
 valini = []
 
@@ -17,15 +24,13 @@ for i in range(0, len(urls)):
 
     soup = BeautifulSoup(content.text)
 
-    print(soup)
-
     if 'flipkart' in urls[i]:
         k = soup.find_all('div', class_=c[1])
         print(k)
         j = str(k[0])
         soup = BeautifulSoup(j, 'html.parser')
         tag = soup.div
-        p_flipkart = int(tag.string[1::])
+        p_flipkart = intter(tag.string[1::])
         valini.append(p_flipkart)
 
     elif 'amazon' in urls[i]:
@@ -34,7 +39,7 @@ for i in range(0, len(urls)):
         j = str(k[0])
         soup = BeautifulSoup(j, 'html.parser')
         tag = soup.span
-        p_amazon = int(tag.string[1::])
+        p_amazon = intter(tag.string[1::])
         valini.append(p_amazon)
 
 print(valini)
@@ -76,3 +81,5 @@ def recheckkk():
                 message.append(urls[i] + ' = ' + p_amazon)
 
     print(message)
+
+
